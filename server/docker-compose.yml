@@ -1,0 +1,40 @@
+version: "3.1"
+
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - ./pg:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecommerce
+
+  api:
+    container_name: api_container
+    command: yarn start
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    ports: 
+        - "9000:80"
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: p@neversitup.com
+      PGADMIN_DEFAULT_PASSWORD: password@ecommerce
+  
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 9000:8080
