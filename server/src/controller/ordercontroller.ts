@@ -1,5 +1,4 @@
 import { User } from "./../entity/User";
-import { Product } from "./../entity/Product";
 import { Order } from "./../entity/Order";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
