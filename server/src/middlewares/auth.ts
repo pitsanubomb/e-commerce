@@ -21,10 +21,26 @@ class AuthJwt {
 
     const { userId, username } = jwtToken;
     const newToken = jwt.sign({ userId, username }, "secretis1234", {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
     res.setHeader("refreshtoken", newToken);
     next();
   };
+
+  static isAdmin(req: Request, res: Response, next: NextFunction) {
+    let isadmin: boolean
+    try {
+      if (res.locals.isAuth.isAdmin === true) {
+        isadmin = true;
+      } else {
+        res.status(403).send({ message: 'Permission denine', detail: 'คุณไม่ใช่ Admin' });
+        return;
+      }
+    } catch (error) {
+      res.status(401).send();
+      return;
+    }
+    next()
+  }
 }
 export default AuthJwt;
