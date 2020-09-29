@@ -13,4 +13,10 @@ export class Product {
 
   @Column({ type: "decimal" })
   prize: number;
+
+  @Column()
+  count: number;
+
+  @Column({ type: "boolean" })
+  isShipping: boolean;
 }
