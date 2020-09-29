@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="mt-3">
+  <b-container class="mt-3">
     <b-card-group columns>
       <product
         :img= "product.imgcover"
