@@ -6,11 +6,21 @@ import * as jwt from "jsonwebtoken";
 class UserController {
   static register = async (req: Request, res: Response) => {
     const repo = getRepository(User);
-    const user = await repo.create({
-      username: req.body.username,
-      password:
-        Buffer.from(req.body.password).toString("base64") + "secretpass",
-    });
+    let user: User;
+    if (req.body.isAdmin === true) {
+      user = repo.create({
+        username: req.body.username,
+        password:
+          Buffer.from(req.body.password).toString("base64") + "secretpass",
+        isAdmin: true
+      });
+    } else {
+      user = repo.create({
+        username: req.body.username,
+        password:
+          Buffer.from(req.body.password).toString("base64") + "secretpass",
+      });
+    }
     const resData = await repo
       .save(user)
       .then((d: User) => {
@@ -18,6 +28,7 @@ class UserController {
           message: "Register complete",
           data: {
             user: d.username,
+            isAdmin: d.isAdmin
           },
         };
       })
@@ -33,12 +44,7 @@ class UserController {
       });
       return;
     }
-    return res.status(201).send({
-      message: "Register success",
-      data: {
-        res: resData,
-      },
-    });
+    return res.status(201).send(resData);
   };
 
   static auth = async (req: Request, res: Response) => {
@@ -188,7 +194,7 @@ class UserController {
     const repo = getRepository(User);
     try {
       const order = await repo.findOneOrFail(res.locals.isAuth.id, {
-        relations: ["orders","orders.products"],
+        relations: ["orders", "orders.products"],
       });
       res.send({
         message: "History found",
