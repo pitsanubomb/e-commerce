@@ -1,26 +1,28 @@
 <template>
   <div class="container-fulid mt-3 mx-3">
-    <b-card-group>
+    <b-card-group columns>
       <b-card
         v-for="product in products"
         :key="product.id"
-        :title="product.name"
-        border-variant="Light"
-        style="max-width: 20rem"
-        img-src="https://placekitten.com/380/200"
+        :title=product.name
+        img-src="https://picsum.photos/300/300/?image=41"
         img-alt="Image"
         img-top
       >
-        <b-card-text
-          ><b-row>
+        <b-card-text>
+          <b-row>
             <b-col>฿{{ product.prize }}</b-col>
             <b-img
               src="@/assets/free-free-shipping-icon-2048-thumb.png"
               style="width: 40px; height: 40px"
               rounded
               alt="Rounded image"
-            ></b-img> </b-row
-        ></b-card-text>
+            ></b-img>
+          </b-row>
+        </b-card-text>
+        <template v-slot:footer>
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </template>
       </b-card>
     </b-card-group>
   </div>

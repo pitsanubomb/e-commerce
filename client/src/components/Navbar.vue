@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand">Navbar</a>
+    <a class="navbar-brand">E-commerce</a>
     <form class="form-inline">
       <input
         class="form-control mr-sm-2"
