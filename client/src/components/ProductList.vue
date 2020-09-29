@@ -1,14 +1,15 @@
 <template>
-  <b-container class="mt-3">
-    <b-row align-v="center">
+  <b-container fluid class="mt-3">
+    <b-card-group columns>
       <product
-        img="https://picsum.photos/600/300/?image=25"
+        :img= "product.imgcover"
         :name="product.name"
         :prize="product.prize"
+        :isShipping="product.isShipping"
         v-for="product in products"
         :key="product.id"
       />
-    </b-row>
+    </b-card-group>
   </b-container>
 </template>
 
