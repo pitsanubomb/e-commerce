@@ -55,22 +55,23 @@ export default {
 
     async function onSubmit(evt) {
       evt.preventDefault();
-      const res = await fetch('http://localhost:3000/api/user/login', {
+      await fetch('http://localhost:3000/api/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data.form),
-      });
-      await res
-        .json()
+      })
         .then((response) => response.json())
         .then(($data) => {
-          console.log($data);
+          if ($data.error) {
+            data.show = 5;
+            data.error = $data.error;
+          }
         })
-        .catch(() => {
+        .catch((e) => {
           data.show = 5;
-          data.error = 'ไม่สามรถข้าสู่ระบบได้';
+          data.error = e;
         });
     }
 
