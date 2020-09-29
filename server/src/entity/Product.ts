@@ -11,6 +11,9 @@ export class Product {
   @Column()
   detail: string;
 
+  @Column()
+  imgcover: string;
+
   @Column({ type: "decimal" })
   prize: number;
 
