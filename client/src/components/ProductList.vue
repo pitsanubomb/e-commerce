@@ -1,35 +1,20 @@
 <template>
-  <div class="container-fulid mt-3 mx-3">
-    <b-card-group columns>
-      <b-card
+  <b-container class="mt-3">
+    <b-row align-v="center">
+      <product
+        img="https://picsum.photos/600/300/?image=25"
+        :name="product.name"
+        :prize="product.prize"
         v-for="product in products"
         :key="product.id"
-        :title=product.name
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          <b-row>
-            <b-col>฿{{ product.prize }}</b-col>
-            <b-img
-              src="@/assets/free-free-shipping-icon-2048-thumb.png"
-              style="width: 40px; height: 40px"
-              rounded
-              alt="Rounded image"
-            ></b-img>
-          </b-row>
-        </b-card-text>
-        <template v-slot:footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-    </b-card-group>
-  </div>
+      />
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 import { ref } from '@vue/composition-api';
+import ProductCard from '@/components/ProductCard.vue';
 
 export default {
   setup() {
@@ -46,5 +31,6 @@ export default {
     getProductList();
     return { products };
   },
+  components: { product: ProductCard },
 };
 </script>
