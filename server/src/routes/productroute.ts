@@ -5,7 +5,7 @@ import ProductController from "../controller/productcontroller";
 const app = express();
 app.use(express.json());
 
-app.post("/add", [AuthJwt.checkAuth], ProductController.create);
-app.get("/all",ProductController.getall);
+app.post("/add", [AuthJwt.checkAuth, AuthJwt.isAdmin], ProductController.create);
+app.get("/all", ProductController.getall);
 
 export default app;
