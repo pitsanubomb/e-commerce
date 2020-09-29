@@ -69,10 +69,10 @@ class UserController {
       return;
     }
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: user.id, username: user.username, isAdmin: user.isAdmin },
       "secretis1234",
       {
-        expiresIn: "1h",
+        expiresIn: "1d",
       }
     );
     res.send({
