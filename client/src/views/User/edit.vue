@@ -13,7 +13,7 @@
 </template>
 <script>
 import { reactive } from '@vue/composition-api';
-import UserEdit from '@/components/UserFrom.vue';
+import UserEdit from '@/components/User/UserFrom.vue';
 
 export default {
   setup() {

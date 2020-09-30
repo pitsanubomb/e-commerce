@@ -1,7 +1,7 @@
 <template>
   <div class="add">
     <h1>Add Data</h1>
-    <UserEdit
+    <UserAdd
       :id="$route.params.id"
       :isEdit="false"
       :username="state.username"
@@ -13,7 +13,7 @@
 </template>
 <script>
 import { reactive } from '@vue/composition-api';
-import UserEdit from '@/components/UserFrom.vue';
+import UserAdd from '@/components/User/UserFrom.vue';
 
 export default {
   setup() {
@@ -53,7 +53,7 @@ export default {
     };
   },
   components: {
-    UserEdit,
+    UserAdd,
   },
 };
 </script>
