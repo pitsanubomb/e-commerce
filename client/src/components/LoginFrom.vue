@@ -67,6 +67,13 @@ export default {
           if ($data.error) {
             data.show = 5;
             data.error = $data.error;
+          } else {
+            localStorage.setItem('x-token', $data.data.token);
+
+            if ($data.data.isAdmin) {
+              localStorage.setItem('X-Admin', $data.data.isAdmin);
+            }
+            this.$router.push('/');
           }
         })
         .catch((e) => {
