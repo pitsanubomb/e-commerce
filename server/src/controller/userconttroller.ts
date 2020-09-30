@@ -90,7 +90,7 @@ class UserController {
     const userRepository = getRepository(User);
     try {
       const user = await userRepository.findOneOrFail(id, {
-        select: ["id", "username", "isAdmin"],
+        select: ["id", "username", "password", "isAdmin"],
       });
       res.send({ message: "Fetch success", data: user });
     } catch (error) {
