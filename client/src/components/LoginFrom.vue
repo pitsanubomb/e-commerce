@@ -72,8 +72,10 @@ export default {
 
             if ($data.data.isAdmin) {
               localStorage.setItem('X-Admin', $data.data.isAdmin);
+              this.$router.push('/backoffice/user');
+            } else {
+              this.$router.push('/');
             }
-            this.$router.push('/');
           }
         })
         .catch((e) => {

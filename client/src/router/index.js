@@ -40,6 +40,11 @@ const routes = [
         name: 'edituser',
         component: () => import('../views/Product/list.vue'),
       },
+      {
+        path: '/backoffice/product/:id',
+        name: 'edituser',
+        component: () => import('../views/Product/edit.vue'),
+      },
     ],
   },
   {

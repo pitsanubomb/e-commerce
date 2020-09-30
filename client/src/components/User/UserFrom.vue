@@ -73,6 +73,7 @@ export default {
         .then((response) => response.json())
         .then((res) => {
           state.username = res.data.username;
+          state.checked = res.data.isAdmin;
         })
         .catch((e) => {
           console.log(e);
