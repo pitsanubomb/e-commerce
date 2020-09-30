@@ -22,7 +22,7 @@ class ProductController {
       res.send({ message: "Fetch success", data: product });
     } catch (error) {
       res.status(404).send({
-        message: "User not found",
+        message: "Product not found",
         error: error,
       });
     }
@@ -35,6 +35,46 @@ class ProductController {
       res.send({ message: "Find product all success", data: product });
     } catch (error) {
       res.status(404).send({ message: "Not have products", error: error });
+    }
+  };
+
+  static editproduct = async (req: Request, res: Response) => {
+    const id: any = req.params.id;
+    const repo = getRepository(Product);
+    try {
+      let productToUpdate = await repo.findOneOrFail(id);
+      productToUpdate.name = req.body.name;
+      productToUpdate.detail = req.body.detail;
+      productToUpdate.imgcover = req.body.imgcover;
+      productToUpdate.prize = req.body.prize;
+      productToUpdate.count = req.body.count;
+      productToUpdate.isShipping = req.body.isShipping;
+      await repo.save(productToUpdate);
+      res.status(200).send({
+        message: "Update product success",
+      });
+    } catch (error) {
+      res.status(500).send({
+        message: "Can't Edit Product",
+        error: error,
+      });
+    }
+  };
+
+  static delproduct = async (req: Request, res: Response) => {
+    const id: any = req.params.id;
+    const repo = getRepository(Product);
+    const productDel = await repo.findOneOrFail(id);
+    try {
+      await repo.remove(productDel);
+      res.status(200).send({
+        message: "Delete product success",
+      });
+    } catch (error) {
+      res.status(500).send({
+        message: "Can't Delete product",
+        error: error,
+      });
     }
   };
 }

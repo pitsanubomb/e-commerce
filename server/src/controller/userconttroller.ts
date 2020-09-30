@@ -79,7 +79,7 @@ class UserController {
       message: "login success",
       data: {
         token: token,
-        isAdmin:user.isAdmin
+        isAdmin: user.isAdmin
       },
     });
   };
@@ -90,7 +90,7 @@ class UserController {
     const userRepository = getRepository(User);
     try {
       const user = await userRepository.findOneOrFail(id, {
-        select: ["id", "username"],
+        select: ["id", "username", "isAdmin"],
       });
       res.send({ message: "Fetch success", data: user });
     } catch (error) {
@@ -177,12 +177,11 @@ class UserController {
     const id: any = req.params.id;
     const repo = getRepository(User);
     const userDel = await repo.findOneOrFail(id);
-    await repo.remove(userDel);
-    res.status(200).send({
-      message: "Delete user success",
-    });
     try {
-      let userTodel = await repo.findOneOrFail(id);
+      await repo.remove(userDel);
+      res.status(200).send({
+        message: "Delete user success",
+      });
     } catch (error) {
       res.status(500).send({
         message: "Can't Delete user",
