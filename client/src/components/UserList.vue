@@ -15,7 +15,7 @@ export default {
     });
 
     function editData($id) {
-      console.log($id);
+      this.$router.push(`/backoffice/user/${$id}`);
     }
 
     async function fetchData() {

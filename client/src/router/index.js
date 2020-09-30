@@ -23,7 +23,12 @@ const routes = [
       {
         path: '/backoffice/user',
         name: 'user',
-        component: () => import('../views/User.vue'),
+        component: () => import('../views/User/list.vue'),
+      },
+      {
+        path: '/backoffice/user/:id',
+        name: 'user',
+        component: () => import('../views/User/edit.vue'),
       },
     ],
   },
