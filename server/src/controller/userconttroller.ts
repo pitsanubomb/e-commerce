@@ -79,6 +79,7 @@ class UserController {
       message: "login success",
       data: {
         token: token,
+        isAdmin:user.isAdmin
       },
     });
   };
