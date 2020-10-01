@@ -9,7 +9,13 @@
               <router-link to="/backoffice/user">User</router-link>
             </b-nav-item>
             <b-nav-item>
+              <router-link to="/backoffice/user/add">Add User</router-link>
+            </b-nav-item>
+            <b-nav-item>
               <router-link to="/backoffice/product">Product</router-link>
+            </b-nav-item>
+            <b-nav-item>
+              <router-link to="/backoffice/product/add">Add Product</router-link>
             </b-nav-item>
           </b-nav>
         </nav>

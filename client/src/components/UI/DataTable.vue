@@ -15,7 +15,14 @@
         >
           Edit
         </b-button>
-        <b-button size="sm" variant="danger" class="mr-2"> Delete </b-button>
+        <b-button
+          size="sm"
+          @click="delData(row.item.id)"
+          variant="danger"
+          class="mr-2"
+        >
+          Delete
+        </b-button>
       </template>
       <template v-slot:row-details="row">
         <b-card>
@@ -43,6 +50,9 @@ export default {
   methods: {
     editData(id) {
       this.$emit('edit-id', id);
+    },
+    delData(id) {
+      this.$emit('del-id', id);
     },
   },
 };

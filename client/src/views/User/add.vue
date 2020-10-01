@@ -1,6 +1,9 @@
 <template>
   <div class="add">
     <h1>Add Data</h1>
+    <b-alert v-model="state.isShow" :variant="state.variant">
+      {{ state.message }}
+    </b-alert>
     <UserAdd
       :id="$route.params.id"
       :isEdit="false"
@@ -21,6 +24,9 @@ export default {
       username: '',
       password: '',
       checked: [],
+      isShow: false,
+      variant: '',
+      message: '',
     });
 
     function editData(fromdata) {
@@ -42,9 +48,17 @@ export default {
       fetch('http://localhost:3000/api/user/register', requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          if (result) {
+            state.isShow = true;
+            state.variant = 'success';
+            state.message = 'Create data sucess';
+          }
         })
-        .catch((error) => console.log('error', error));
+        .catch((error) => {
+          state.isShow = true;
+          state.variant = 'danger';
+          state.message = error;
+        });
     }
 
     return {
