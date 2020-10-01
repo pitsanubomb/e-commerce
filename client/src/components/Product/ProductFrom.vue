@@ -14,13 +14,24 @@
       <b-form-textarea
         id="textarea"
         v-model="state.detail"
-        placeholder="Enter something..."
+        placeholder="Enter detail..."
         rows="3"
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
 
-    <b-img :src="state.imgcover" alt="Transparent image"></b-img>
+    <b-form-group
+      id="input-group-image"
+      label="Upload image:"
+      label-for="input-image"
+    >
+      <b-img
+        v-if="state.imgcover"
+        :src="state.imgcover"
+        alt="Transparent image"
+      ></b-img>
+      <b-form-file class="mt-3" @change="onImageUpload" plain></b-form-file>
+    </b-form-group>
 
     <b-form-group id="input-group-3" label="Prize:" label-for="input-3">
       <b-form-input
@@ -91,6 +102,15 @@ export default {
       isShipping: props.isShipping,
     });
 
+    function onImageUpload(e) {
+      const uploadFile = e.target.files[0];
+      const readImg = new FileReader();
+      readImg.addEventListener('load', () => {
+        state.imgcover = readImg.result;
+      });
+      readImg.readAsDataURL(uploadFile);
+    }
+
     async function fetchUserData() {
       const authHeaders = new Headers();
       authHeaders.append(
@@ -141,6 +161,7 @@ export default {
 
     return {
       onSubmit,
+      onImageUpload,
       state,
     };
   },

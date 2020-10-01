@@ -41,6 +41,11 @@ const routes = [
         component: () => import('../views/Product/list.vue'),
       },
       {
+        path: '/backoffice/product/add',
+        name: 'adduser',
+        component: () => import('../views/Product/add.vue'),
+      },
+      {
         path: '/backoffice/product/:id',
         name: 'edituser',
         component: () => import('../views/Product/edit.vue'),
