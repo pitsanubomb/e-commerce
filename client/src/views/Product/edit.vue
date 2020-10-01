@@ -1,6 +1,9 @@
 <template>
   <div class="edit">
     <h1>Edit Data</h1>
+    <b-alert v-model="state.isShow" :variant="state.variant">
+      {{ state.message }}
+    </b-alert>
     <ProductEdit
       :id="$route.params.id"
       :isEdit="true"
@@ -27,6 +30,9 @@ export default {
       prize: null,
       count: null,
       isShipping: [],
+      isShow: false,
+      variant: '',
+      message: '',
     });
 
     function editData(fromdata) {
@@ -48,9 +54,17 @@ export default {
       fetch(`http://localhost:3000/api/product/${fromdata.id}`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          if (result) {
+            state.isShow = true;
+            state.variant = 'success';
+            state.message = 'Edit data sucess';
+          }
         })
-        .catch((error) => console.log('error', error));
+        .catch((error) => {
+          state.isShow = true;
+          state.variant = 'danger';
+          state.message = error;
+        });
     }
 
     return {

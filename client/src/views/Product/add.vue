@@ -1,6 +1,9 @@
 <template>
   <div class="edit">
     <h1>Add Data</h1>
+    <b-alert v-model="state.isShow" :variant="state.variant">
+      {{ state.message }}
+    </b-alert>
     <ProductEdit
       :id="$route.params.id"
       :name="state.name"
@@ -17,6 +20,7 @@
 import { reactive } from '@vue/composition-api';
 import ProductEdit from '@/components/Product/ProductFrom.vue';
 
+const newLocal = 'http://localhost:3000/api/product/add';
 export default {
   setup() {
     const state = reactive({
@@ -26,6 +30,9 @@ export default {
       prize: null,
       count: null,
       isShipping: [],
+      isShow: false,
+      variant: '',
+      message: '',
     });
 
     function addData(fromdata) {
@@ -44,12 +51,20 @@ export default {
         body: bodyData,
       };
 
-      fetch('http://localhost:3000/api/product/add', requestOptions)
+      fetch(newLocal, requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          if (result) {
+            state.isShow = true;
+            state.variant = 'success';
+            state.message = 'Create data sucess';
+          }
         })
-        .catch((error) => console.log('error', error));
+        .catch((error) => {
+          state.isShow = true;
+          state.variant = 'danger';
+          state.message = error;
+        });
     }
 
     return {
