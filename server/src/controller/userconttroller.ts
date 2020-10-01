@@ -159,10 +159,12 @@ class UserController {
     try {
       let userToUpdate = await repo.findOneOrFail(id);
       userToUpdate.username = req.body.username;
-      if (req.body.password || req.body.password !== null || req.body.password !== undefined) {
+      if (req.body.password) {
         userToUpdate.password =
           Buffer.from(req.body.password).toString("base64") + "secretpass"
-      };
+      } else {
+        userToUpdate.password = userToUpdate.password
+      }
       userToUpdate.isAdmin = req.body.isAdmin;
       await repo.save(userToUpdate);
       res.status(200).send({
