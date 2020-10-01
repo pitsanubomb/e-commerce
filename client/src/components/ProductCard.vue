@@ -23,13 +23,13 @@
       </b-row>
     </b-card-text>
     <template v-slot:footer>
-      <small class="text-muted">Last updated 3 mins ago</small>
+      <small class="text-muted">{{ count }}</small>
     </template>
   </b-card>
 </template>
 
 <script>
 export default {
-  props: ['name', 'prize', 'img', 'isShipping'],
+  props: ['name', 'prize', 'img', 'isShipping', 'count'],
 };
 </script>

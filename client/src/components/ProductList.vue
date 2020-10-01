@@ -5,6 +5,7 @@
         :img= "product.imgcover"
         :name="product.name"
         :prize="product.prize"
+        :count="product.count"
         :isShipping="product.isShipping"
         v-for="product in products"
         :key="product.id"
