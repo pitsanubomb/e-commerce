@@ -37,17 +37,17 @@ const routes = [
       },
       {
         path: '/backoffice/product/',
-        name: 'edituser',
+        name: 'product',
         component: () => import('../views/Product/list.vue'),
       },
       {
         path: '/backoffice/product/add',
-        name: 'adduser',
+        name: 'addproduct',
         component: () => import('../views/Product/add.vue'),
       },
       {
         path: '/backoffice/product/:id',
-        name: 'edituser',
+        name: 'editproduct',
         component: () => import('../views/Product/edit.vue'),
       },
     ],

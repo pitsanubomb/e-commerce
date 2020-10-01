@@ -5,7 +5,7 @@ import Vue from 'vue';
 import VueCompositionAPI from '@vue/composition-api';
 import './plugins/bootstrap-vue';
 
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 import App from './App.vue';
 import router from './router';

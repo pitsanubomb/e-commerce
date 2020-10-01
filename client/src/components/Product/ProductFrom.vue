@@ -30,7 +30,12 @@
         :src="state.imgcover"
         alt="Transparent image"
       ></b-img>
-      <b-form-file class="mt-3" @change="onImageUpload" plain></b-form-file>
+      <b-form-file
+        class="mt-3"
+        accept="image/*"
+        @change="onImageUpload"
+        plain
+      ></b-form-file>
     </b-form-group>
 
     <b-form-group id="input-group-3" label="Prize:" label-for="input-3">
@@ -64,6 +69,8 @@
 </template>
 <script>
 import { reactive } from '@vue/composition-api';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 
 export default {
   props: {
@@ -102,15 +109,31 @@ export default {
       isShipping: props.isShipping,
     });
 
+    function firebaseUpload($file, urlData) {
+      const pid = Math.random().toString(36).substring(4);
+      const fireRef = firebase.storage().ref(`products/${pid}${$file.name}`);
+      fireRef.putString(urlData, 'data_url').then(
+        (snapshot) => {
+          if (snapshot) {
+            fireRef.getDownloadURL().then((productImg) => {
+              state.imgcover = productImg;
+            });
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    }
+
     function onImageUpload(e) {
       const uploadFile = e.target.files[0];
       const readImg = new FileReader();
       readImg.addEventListener('load', () => {
-        state.imgcover = readImg.result;
+        firebaseUpload(uploadFile, readImg.result);
       });
       readImg.readAsDataURL(uploadFile);
     }
-
     async function fetchUserData() {
       const authHeaders = new Headers();
       authHeaders.append(
@@ -134,7 +157,7 @@ export default {
           state.imgcover = res.data.imgcover;
           state.prize = res.data.prize;
           state.count = res.data.count;
-          state.isShipping = res.data.isShipping;
+          state.isShipping = [res.data.isShipping];
         })
         .catch((e) => {
           console.log(e);
@@ -153,7 +176,7 @@ export default {
           imgcover: state.imgcover,
           prize: state.prize,
           count: state.count,
-          isShipping: state.isShipping,
+          isShipping: state.isShipping[0],
         },
         id: props.id,
       });
