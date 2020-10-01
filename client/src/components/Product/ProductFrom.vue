@@ -6,7 +6,7 @@
         v-model="state.name"
         type="text"
         required
-        placeholder="Enter Username"
+        placeholder="Enter Name"
       ></b-form-input>
     </b-form-group>
 

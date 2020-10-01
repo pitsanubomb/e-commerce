@@ -73,7 +73,7 @@ export default {
         .then((response) => response.json())
         .then((res) => {
           state.username = res.data.username;
-          state.checked = res.data.isAdmin;
+          state.checked = [res.data.isAdmin];
         })
         .catch((e) => {
           console.log(e);
@@ -86,16 +86,28 @@ export default {
 
     function onSubmit() {
       let $isAdmin = false;
+      let bodyFrom;
       if (state.checked.length > 0) {
         $isAdmin = true;
       }
-
-      ctx.emit('submit-user', {
-        bodydata: {
+      if (
+        !props.isEdit
+        || props.isEdit !== true
+        || state.password !== 'kfllkfldsakrand'
+      ) {
+        bodyFrom = {
           username: state.username,
           password: state.password,
           isAdmin: $isAdmin,
-        },
+        };
+      } else {
+        bodyFrom = {
+          username: state.username,
+          isAdmin: $isAdmin,
+        };
+      }
+      ctx.emit('submit-user', {
+        bodydata: bodyFrom,
         id: props.id,
       });
     }

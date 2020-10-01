@@ -19,7 +19,7 @@ export default {
   setup() {
     const state = reactive({
       username: '',
-      password: '',
+      password: 'kfllkfldsakrand',
       checked: [],
     });
 
